@@ -1,45 +1,41 @@
-# Casos de Uso GREENPY
+# Casos de Uso - Greenpy
+### Usuário Comum (Reciclador):
 
-## Autenticação e Perfil
+O usuário acessa o aplicativo Greepy. Se já tiver conta, faça login; caso contrário, realize o cadastro (opção de cadastro rápido com Conta Google).
 
-* Como um novo usuário, eu quero me cadastrar no aplicativo preenchendo meus dados (nome, email, senha) para que eu possa começar a reciclar e acumular pontos.
+Após entrar, o usuário vê o **Painel Principal**, contendo:
+* Total de pontos acumulados
+* Histórico de descartes/reciclagens realizados
+* Classificação dos tipos de resíduos já reciclados
 
-* Como um novo usuário, eu quero ter a opção de "Cadastro rápido com Conta Google" para que o processo seja mais fácil e eu não precise criar outra senha.
+O usuário pode acessar a aba **Converter Pontos**, onde:
+* Visualiza o total de pontos disponíveis, escolhe quantos pontos desejar converter
+* Visualiza a lista de estabelecimentos parceiros e os valores de desconto correspondentes
 
-* Como um usuário já cadastrado, eu quero fazer login com meu email e senha para que eu possa acessar minha conta.
+Para realizar um descarte, o usuário acessa a aba **Pontos de Coleta**, onde:
+* Visualizar as categorias de resíduos aceitos (papel, plástico, metal, etc.)
+* Informa a quantidade e tipo de material que deseja descartar
+* Seleciona o colaborador (ponto de coleta/estabelecimento)
+* O sistema exibe os pontos de coleta mais próximos com base na localização do usuário
+* Após o descarte ser confirmado pelo administrador, os pontos são creditados automaticamente ao usuário
 
-* Como um usuário, eu quero poder redefinir minha senha caso eu a esqueça para que eu possa recuperar o acesso à minha conta.
+Usuario Comum: 
+Como um usuário que esqueceu a senha, pode solicitar uma redefinição de senha (via e-mail) para que possa recuperar o acesso à conta. Podendo também fazer alterações de dados no perfil para que as informações se mantenham atualizadas.
+Ao procurar pontos de coletas o usuário poderá colocar os pontos de coletas por filtro do meterial que sera descartado, para não correr o risco de ir até um local de coleta e não esta mais recebendo o tipo do material a ser descartado.Recebendo confirmação imediata a partir do momento em que o Adm confirmar a coleta, o usuáro receberam uma notificação de confirmação e o total de pontos que recebeu.
 
-* Como um usuário logado, eu quero poder editar minhas informações de perfil (nome, foto, endereço) para que eu possa manter meus dados atualizados.
+### Administrador (Colaborador do Ponto de Coleta):
 
-## Dashboard (Painel Principal)
+O administrador acessa o aplicativo com um perfil especial (login de administrador). Ele visualiza todas as informações disponíveis ao usuário comum mais:
+* Nível atual de enchimento dos contêineres
+* Quantidade total de coletas recebidas no dia/semana/mês
+* Lista de usuários que realizaram descartes
+* Estabelecimentos parceiros vinculados ao ponto
 
-* Como um usuário logado, eu quero ver meu total de pontos acumulados no Painel Principal para que eu saiba meu saldo rapidamente.
+Ao receber um descarte físico do usuário:
+O administrador acessa o painel de **Validação de Coletas**, confere o tipo e quantidade do material entregue e liberar manualmente os pontos correspondentes ao usuário.
 
-* Como um usuário logado, eu quero ver meu histórico de descartes/reciclagens realizados para que eu possa acompanhar minhas contribuições.
-
-* Como um usuário logado, eu quero ver uma classificação dos tipos de resíduos que já reciclei (ex: 20kg de Plástico, 15kg de Metal) para que eu possa entender meu impacto ambiental.
-
-## Descarte de Resíduos
-
-* Como um usuário, eu quero acessar a aba "Pontos de Coleta" para que eu possa encontrar um local para descartar meus recicláveis.
-
-* Como um usuário, eu quero que o sistema exiba os pontos de coleta mais próximos com base na minha localização (GPS) para que eu possa encontrar o local mais conveniente.
-
-* Como um usuário, eu quero poder filtrar os pontos de coleta por tipo de material aceito (ex: "só os que aceitam lixo eletrônico") para que eu não perca tempo indo ao lugar errado.
-
-* Como um usuário, eu quero selecionar um ponto de coleta no mapa para que eu possa ver seus detalhes (horário de funcionamento, tipos de resíduos aceitos).
-
-* Como um usuário, eu quero informar a quantidade e o tipo de material que desejo descartar (ex: 5kg de plástico) para que eu possa iniciar o processo de validação com o colaborador.
-
-* Como um usuário, eu quero que meus pontos sejam creditados automaticamente na minha conta após o administrador do ponto de coleta confirmar meu descarte.
-
-# Conversão de Pontos (Recompensas)
-
-* Como um usuário, eu quero acessar a aba "Converter Pontos" (ou "Loja Sustentável") para que eu possa ver como usar meu saldo.
-
-* Como um usuário, eu quero visualizar a lista de estabelecimentos parceiros e os valores de desconto correspondentes (ex: 500 pontos = R$ 5,00) para que eu saiba onde posso usar meus pontos.
-
-* Como um usuário, eu quero poder escolher quantos pontos desejo converter e gerar um voucher/QR Code para que eu possa apresentar no caixa do parceiro.
-
-* Como um usuário, eu quero poder ver um "Extrato" detalhado de pontos ganhos e gastos para que eu possa ter controle financeiro dos meus pontos.
+O administrador também pode:
+* Atualizar horários e dias de recebimento de materiais
+* Informar quais tipos de resíduos estão sendo aceitos atualmente
+* Ajustar a pontuação atribuída por tipo de material (ex.: plástico vale 10 pontos/kg)
+* Sinalizar temporariamente a indisponibilidade de contêineres (ex: lotados)
