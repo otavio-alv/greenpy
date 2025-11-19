@@ -1,41 +1,39 @@
-# Casos de Uso - Greenpy
-### Usuário Comum (Reciclador):
+# Histórias de Usuário - Greenpy
 
-O usuário acessa o aplicativo Greepy. Se já tiver conta, faça login; caso contrário, realize o cadastro (opção de cadastro rápido com Conta Google).
+## Usuário Comum (Reciclador)
 
-Após entrar, o usuário vê o **Painel Principal**, contendo:
-* Total de pontos acumulados
-* Histórico de descartes/reciclagens realizados
-* Classificação dos tipos de resíduos já reciclados
+### Autenticação e Conta
+* **US01**: Como **reciclador**, eu quero **me cadastrar ou fazer login (com opção de Conta Google)**, para **acessar o aplicativo rapidamente**.
+* **US02**: Como **reciclador**, eu quero **solicitar a redefinição de senha via e-mail**, para **recuperar o acesso à conta caso eu esqueça meus dados**.
+* **US03**: Como **reciclador**, eu quero **editar meus dados de perfil**, para **manter minhas informações de contato atualizadas**.
 
-O usuário pode acessar a aba **Converter Pontos**, onde:
-* Visualiza o total de pontos disponíveis, escolhe quantos pontos desejar converter
-* Visualiza a lista de estabelecimentos parceiros e os valores de desconto correspondentes
+### Painel e Monitoramento
+* **US04**: Como **reciclador**, eu quero **visualizar meu saldo total de pontos e classificação**, para **acompanhar meu progresso**.
+* **US05**: Como **reciclador**, eu quero **acessar o histórico de descartes realizados**, para **ter controle sobre minhas atividades passadas**.
 
-Para realizar um descarte, o usuário acessa a aba **Pontos de Coleta**, onde:
-* Visualizar as categorias de resíduos aceitos (papel, plástico, metal, etc.)
-* Informa a quantidade e tipo de material que deseja descartar
-* Seleciona o colaborador (ponto de coleta/estabelecimento)
-* O sistema exibe os pontos de coleta mais próximos com base na localização do usuário
-* Após o descarte ser confirmado pelo administrador, os pontos são creditados automaticamente ao usuário
+### Operação de Descarte
+* **US06**: Como **reciclador**, eu quero **visualizar os pontos de coleta mais próximos**, para **facilitar a entrega dos resíduos**.
+* **US07**: Como **reciclador**, eu quero **filtrar os pontos de coleta por tipo de material aceito**, para **evitar ir a locais que não recebem meu resíduo**.
+* **US08**: Como **reciclador**, eu quero **informar a quantidade e tipo de material para descarte**, para **iniciar o processo de solicitação de pontos**.
 
-Usuario Comum: 
-Como um usuário que esqueceu a senha, pode solicitar uma redefinição de senha (via e-mail) para que possa recuperar o acesso à conta. Podendo também fazer alterações de dados no perfil para que as informações se mantenham atualizadas.
-Ao procurar pontos de coletas o usuário poderá colocar os pontos de coletas por filtro do meterial que sera descartado, para não correr o risco de ir até um local de coleta e não esta mais recebendo o tipo do material a ser descartado.Recebendo confirmação imediata a partir do momento em que o Adm confirmar a coleta, o usuáro receberam uma notificação de confirmação e o total de pontos que recebeu.
+### Recompensas e Feedback
+* **US09**: Como **reciclador**, eu quero **visualizar a lista de parceiros e seus descontos**, para **saber onde posso usar meus pontos**.
+* **US10**: Como **reciclador**, eu quero **converter meus pontos em descontos**, para **obter benefícios concretos**.
+* **US11**: Como **reciclador**, eu quero **receber uma notificação de confirmação de coleta**, para **saber exatamente quando meus pontos foram creditados**.
 
-### Administrador (Colaborador do Ponto de Coleta):
+---
 
-O administrador acessa o aplicativo com um perfil especial (login de administrador). Ele visualiza todas as informações disponíveis ao usuário comum mais:
-* Nível atual de enchimento dos contêineres
-* Quantidade total de coletas recebidas no dia/semana/mês
-* Lista de usuários que realizaram descartes
-* Estabelecimentos parceiros vinculados ao ponto
+## Administrador (Colaborador do Ponto de Coleta)
 
-Ao receber um descarte físico do usuário:
-O administrador acessa o painel de **Validação de Coletas**, confere o tipo e quantidade do material entregue e liberar manualmente os pontos correspondentes ao usuário.
+### Gestão Operacional
+* **US12**: Como **administrador**, eu quero **visualizar o nível de enchimento dos contêineres**, para **gerenciar a capacidade física do local**.
+* **US13**: Como **administrador**, eu quero **acessar estatísticas de coletas (diárias/semanais/mensais)**, para **analisar o desempenho do ponto de coleta**.
+* **US14**: Como **administrador**, eu quero **sinalizar a indisponibilidade de contêineres**, para **informar aos usuários que o local não pode receber materiais no momento**.
 
-O administrador também pode:
-* Atualizar horários e dias de recebimento de materiais
-* Informar quais tipos de resíduos estão sendo aceitos atualmente
-* Ajustar a pontuação atribuída por tipo de material (ex.: plástico vale 10 pontos/kg)
-* Sinalizar temporariamente a indisponibilidade de contêineres (ex: lotados)
+### Validação
+* **US15**: Como **administrador**, eu quero **conferir o material entregue e liberar os pontos manualmente**, para **garantir a veracidade do descarte e recompensar o usuário**.
+
+### Configuração do Ponto
+* **US16**: Como **administrador**, eu quero **atualizar horários e dias de funcionamento**, para **manter os usuários informados**.
+* **US17**: Como **administrador**, eu quero **definir quais tipos de resíduos são aceitos**, para **alinhar o recebimento com a capacidade de processamento**.
+* **US18**: Como **administrador**, eu quero **ajustar a pontuação por tipo de material**, para **gerenciar a economia de pontos conforme a demanda ou valor do resíduo**.
