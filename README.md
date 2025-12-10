@@ -39,6 +39,11 @@ O aplicativo é dividido em duas frentes principais, com funcionalidades especí
 
 Todo o desenvolvimento deste projeto é gerenciado publicamente através do nosso Quadro Kanban no GitHub Projects. Lá você pode ver a divisão de Sprints, o que está no Backlog e o que está sendo feito.
 
+## Tecnologias
+
+* **Flutter (Frontend)**: A aplicação mobile foi desenvolvida utilizando o framework Flutter. Desenvolvimento de telas, fluxo geral do app e lógica de uso.
+* **Firebase (Backend)**: BaaS (Backend-as-a-Service) foi utilizado para infraestrutura de servidor e armazenamento da aplicação. Oferece as funcionalidades de backend, autenticação, hosting e comunicação em nuvem nativa com o Flutter.
+
 ## Autores
 
 Este projeto é baseado no trabalho acadêmico "Greenpy: Uma Plataforma centrada na colaboração humana para Sustentabilidade", desenvolvido na Universidade Federal de Ouro Preto (UFOP).
