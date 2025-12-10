@@ -37,3 +37,9 @@
 * **US16**: Como **administrador**, eu quero **atualizar horários e dias de funcionamento**, para **manter os usuários informados**.
 * **US17**: Como **administrador**, eu quero **definir quais tipos de resíduos são aceitos**, para **alinhar o recebimento com a capacidade de processamento**.
 * **US18**: Como **administrador**, eu quero **ajustar a pontuação por tipo de material**, para **gerenciar a economia de pontos conforme a demanda ou valor do resíduo**.
+
+---
+
+# Diagrama de Casos de Uso
+
+<img width="1711" height="1538" alt="image" src="https://github.com/user-attachments/assets/d285c8bb-8b26-4a7c-ab8e-be7891d3f973" />
