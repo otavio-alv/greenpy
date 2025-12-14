@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "733760701436",
+    "project_id": "reciclagemapp-dbe4f",
+    "storage_bucket": "reciclagemapp-dbe4f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733760701436:android:c07f5b3bf38ad8cd4a6879",
+        "android_client_info": {
+          "package_name": "com.example.reciclagem_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFr_KZ3VZDBknopigqcTZ03XviKCpCp5Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
