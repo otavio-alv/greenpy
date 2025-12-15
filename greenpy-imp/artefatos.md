@@ -52,7 +52,7 @@ Configuração do arquivo `pubspec.yaml`, com a definição do nome do projeto, 
 **Evidência:**
 Figura 3 – Configuração das dependências do projeto no arquivo `pubspec.yaml`.
 
-![Estrutura do projeto](imagens/orgPastaLib.png)
+![Estrutura do projeto](imagens/printPubspec.png)
 ---
 
 ## Sprint 2 – Autenticação e Interface Inicial
