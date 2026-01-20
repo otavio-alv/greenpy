@@ -41,5 +41,5 @@
 ---
 
 # Diagrama de Casos de Uso
+<img width="1628" height="1538" alt="Greenpy(1)" src="https://github.com/user-attachments/assets/9d3ea0e9-a433-4a75-ab4b-f9bf7da930ad" />
 
-<img width="1711" height="1538" alt="image" src="https://github.com/user-attachments/assets/d285c8bb-8b26-4a7c-ab8e-be7891d3f973" />
