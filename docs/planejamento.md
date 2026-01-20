@@ -140,7 +140,7 @@ Implementação do sistema de recompensas para engajar o usuário.
 
 Conclusão do trabalho
 
-1.	Painel do Administrador:
+1. Painel do Administrador:
    
    **Responsável**: Todos
 
