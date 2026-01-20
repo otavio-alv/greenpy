@@ -6,19 +6,19 @@ Visamos o desenvolvimento paralelo do Frontend e Backend, alternando as responsa
 ## Sprint 0 - Documentação
 1. Configuração do repositório no Github, juntamente do quadro Kanban.
    
-	**Responsável**: todos
+	**Responsável**:  Otávio 
 
 3. Escrito o README.md principal do projeto, especificando a ideia, funcionalidade e objetivo do aplicativo.
    
-**Responsável**: todos
+**Responsável**: Todos
 
 5. Definição da arquitetura do software
    
-**Responsável**: todos
+**Responsável**: Todos
 
 7. Especificar e dividir as funcionalides por sprints de desenvolvimento.
    
-**Responsável**: todos
+**Responsável**: Todos
 
 ## Sprint 1 - Configuração Inicial e Arquitetura
 
@@ -34,13 +34,13 @@ Foco em preparar o ambiente de desenvolvimento e estruturar a base de dados.
     
     Criação do esqueleto da API e configurações iniciais do servidor.
     
-    **Responsável**: Equipe de Backend
+    **Responsável**: Michelle e Ana Paula
     
 6.  Iniciar o projeto do App (Frontend):
     
     Criação do projeto mobile/web e instalação de dependências.
     
-    **Responsável**: Equipe de Frontend
+    **Responsável**: Fábio e Ana Paula
     
 
 
@@ -52,31 +52,31 @@ Desenvolvimento das funcionalidades de acesso e gestão de perfil do usuário.
     
     Tarefa mestre para o fluxo de entrada do usuário.
     
-    **Responsável**: Gerente de Projeto / Líder Técnico
+    **Responsável**: Fábio e Otávio
     
 2.  Implementar usuários e contas:
     
     Desenvolvimento da lógica de cadastro e segurança no Backend.
     
-    **Responsável**: Equipe de Backend
+    **Responsável**: Fábio e Otávio
     
 3.  Login no aplicativo:
     
     Desenvolvimento da interface e integração de login no Frontend.
     
-    **Responsável**: Equipe de Frontend
+    **Responsável**: Fábio e Otávio
     
 4.  Tela Inicial do aplicativo:
     
     Criação da Home do app após o login.
     
-    Responsável: Equipe de Frontend
+    Responsável: Fábio e Otávio
     
 5.  Configuração da conta
     
     Tela para edição de dados do usuário.
     
-    **Responsável**: Equipe de Frontend
+    **Responsável**: Fábio e Otávio
     
 
 ## Sprint 3 - Funcionalidade de Reciclagem
@@ -87,51 +87,72 @@ Implementação do "Core" do aplicativo: o registro e instrução de descarte.
     
     Tarefa mestre para o fluxo de registro de lixo reciclável.
     
-    **Responsável**: Equipe de Desenvolvimento
+    **Responsável**: Otávio e Michelle
     
 2.  Tela "Como reciclar?":
     
     Interface educativa com instruções para o usuário.
     
-    **Responsável**: Equipe de Frontend / UX Design
+    **Responsável**: Ana Clara
     
 3.  Registro de Descarte (inicial):
     
     Funcionalidade básica para salvar um novo descarte no banco de dados.
     
-    **Responsável**: Equipe Fullstack (Integração Front e Back)
+    **Responsável**: = Fábio e Ana Paula
+
+4.  Processamento e contagem dos itens reciclados:
     
+    Lógica de backend para contabilizar o que foi descartado e gerar métricas.
+    
+    **Responsável**: Otávio e Michelle
 
 ## Sprint 4 - Geolocalização e Processamento
 
 Foco em conectar o usuário aos pontos de coleta e processar os dados gerados.
 
-1.  Tela de Pontos de Coleta próximos:
+1.  Tela do histórico de reciclagem 
     
-    Implementação de mapa ou lista com geolocalização.
+    **Responsável**: Fábio e Ana Paula
     
-    **Responsável**: Equipe de Frontend
+2.  Tela de pontos de coleta próximos:
     
-2.  Processamento e contagem dos itens reciclados:
-    
-    Lógica de backend para contabilizar o que foi descartado e gerar métricas.
-    
-    **Responsável**: Equipe de Backend
+    **Responsável**: Michelle e Ana Clara
     
 
 ## Sprint 5 - Gamificação (Pontos)
 
 Implementação do sistema de recompensas para engajar o usuário.
 
-1.  Pontos:
+1.  Estrato de Pontos:
     
     Lógica de atribuição de pontuação baseada no descarte realizado.
     
-    **Responsável**: Equipe de Backend
+    **Responsável**: Ana Paula e Fábio
     
 2.  Tela de utilização dos pontos:
     
     Interface onde o usuário visualiza seu saldo e opções de uso (resgate/benefícios).
     
-    **Responsável**: Equipe de Frontend
+    **Responsável**: Ana Clara, Otávio e Michelle
+
+## Sprint 6 - Final
+
+Conclusão do trabalho
+
+1.	Painel do Administrador:
+   
+   **Responsável**: Todos
+
+2. Dashboard inicial:
+
+   **Responsável**: Fábio, Michelle e Otávio
+   
+4. Visualizar usuários:
+
+   **Responsável**: Ana Paula e Ana Clara
+   
+5. Visualizar parceiros e pontos:
+
+   **Responsável**: Michelle e Fábio
 
