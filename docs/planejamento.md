@@ -141,18 +141,26 @@ Implementação do sistema de recompensas para engajar o usuário.
 Conclusão do trabalho
 
 1. Painel do Administrador:
+
+   Desenvolvimento da Interface do painel do Administrador 
    
    **Responsável**: Todos
 
-2. Dashboard inicial:
+3. Dashboard inicial:
+
+   Desenvolvimento do Dashboard inicial
 
    **Responsável**: Fábio, Michelle e Otávio
    
-4. Visualizar usuários:
+5. Visualizar usuários:
+
+   Função de visualizar os usuários
 
    **Responsável**: Ana Paula e Ana Clara
    
-5. Visualizar parceiros e pontos:
+7. Visualizar parceiros e pontos:
+
+   Função de visualizar os parceiros e pontos 
 
    **Responsável**: Michelle e Fábio
 
