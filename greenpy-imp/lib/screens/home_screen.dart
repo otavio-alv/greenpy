@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 import '../services/auth_service.dart';
+import 'account_screen.dart';
+import 'recycle_screen.dart';
+import 'how_to_recycle_screen.dart';
+import 'collection_points.dart';
 
 /// Tela principal do aplicativo após login.
 /// Exibe dados do usuário (pontos, materiais reciclados) e navegação para outras telas.
@@ -78,7 +83,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 ? [
                     IconButton(
                       icon: const Icon(Icons.account_circle_outlined, color: Colors.white),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const AccountScreen()),
+                        );
+                      },
                     ),
                   ]
                 : null,
@@ -105,6 +115,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
+// ============================================================================
+// HOME PAGE
+// ============================================================================
 
 /// Página inicial exibida na aba "Início".
 /// Mostra resumo dos pontos e materiais reciclados, além de botões para ações 
@@ -191,6 +204,10 @@ class HomePage extends StatelessWidget {
   }
 }
 
+// ============================================================================
+// INFO PONTOS
+// ============================================================================
+
 /// Widget que exibe os pontos acumulados pelo usuário em um card estilizado.
 class InfoPontos extends StatelessWidget {
   const InfoPontos({
@@ -202,6 +219,8 @@ class InfoPontos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double savings = pontos * 0.10;
+    String formattedSavings = NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$').format(savings);
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -244,9 +263,9 @@ class InfoPontos extends StatelessWidget {
               ),
               textAlign: TextAlign.start,
             ),
-            const Text(
-              'R\$ 15,00',
-              style: TextStyle(
+            Text(
+              formattedSavings,
+              style: const TextStyle(
                 fontFamily: 'Poppins',
                 fontSize: 50,
                 color: Colors.black,
@@ -262,6 +281,9 @@ class InfoPontos extends StatelessWidget {
   }
 }
 
+// ============================================================================
+// ITENS BOX
+// ============================================================================
 
 /// Widget que exibe um resumo dos materiais reciclados pelo usuário.
 /// Mostra ícones e quantidades para plástico, papel, metal e vidro.
@@ -340,6 +362,10 @@ class ItensBox extends StatelessWidget {
   }
 }
 
+// ============================================================================
+// ITEN WIDGET
+// ============================================================================
+
 class ItenWidget extends StatelessWidget {
   const ItenWidget({
     super.key,
@@ -386,6 +412,10 @@ class ItenWidget extends StatelessWidget {
   }
 }
 
+// ============================================================================
+// APP BAR TITLE
+// ============================================================================
+
 class AppBarTitle extends StatelessWidget {
   const AppBarTitle({
     super.key,
@@ -422,6 +452,10 @@ class AppBarTitle extends StatelessWidget {
     );
   }
 }
+
+// ============================================================================
+// GREENPY SQUARE BUTTON
+// ============================================================================
 
 /// Botão quadrado personalizado usado para ações rápidas na tela inicial.
 /// Exibe um ícone e texto, com callback para ação ao tocar.

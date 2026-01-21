@@ -1,26 +1,43 @@
 {
   "project_info": {
-    "project_number": "733760701436",
-    "project_id": "reciclagemapp-dbe4f",
-    "storage_bucket": "reciclagemapp-dbe4f.firebasestorage.app"
+    "project_number": "510039772116",
+    "project_id": "greenpy-app",
+    "storage_bucket": "greenpy-app.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:733760701436:android:c07f5b3bf38ad8cd4a6879",
+        "mobilesdk_app_id": "1:510039772116:android:77bda6787d2a35e4c1a441",
         "android_client_info": {
-          "package_name": "com.example.reciclagem_app"
+          "package_name": "com.example.greenpy"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "510039772116-qcpdrfkifte7hlueppjp0bnosi8bk20m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyCFr_KZ3VZDBknopigqcTZ03XviKCpCp5Q"
+          "current_key": "AIzaSyCe9W81iAYrsUySY_qLqhk5WArZ_hkVeL4"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "510039772116-qcpdrfkifte7hlueppjp0bnosi8bk20m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "510039772116-e2mt6jjci0rbkt4qq08vu72u9og2tntg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.greenpy"
+              }
+            }
+          ]
         }
       }
     }

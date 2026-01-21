@@ -1,6 +1,6 @@
 {
-    "name": "reciclagem_app",
-    "short_name": "reciclagem_app",
+    "name": "greenpy",
+    "short_name": "greenpy",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

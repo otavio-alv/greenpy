@@ -1,4 +1,4 @@
-package com.example.reciclagem_app
+package com.example.greenpy
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -41,48 +41,51 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBwwxcWk6wrwTUqXaoZH_l8pwjfGqiHgOo',
-    appId: '1:733760701436:web:44e625e408537d594a6879',
-    messagingSenderId: '733760701436',
-    projectId: 'reciclagemapp-dbe4f',
-    authDomain: 'reciclagemapp-dbe4f.firebaseapp.com',
-    storageBucket: 'reciclagemapp-dbe4f.firebasestorage.app',
-    measurementId: 'G-B2VVCPM67T',
+    apiKey: 'AIzaSyDiWIH-rxW_vqicNjVys6TFrG-7KXv6mxA',
+    appId: '1:510039772116:web:03ce29665a632edec1a441',
+    messagingSenderId: '510039772116',
+    projectId: 'greenpy-app',
+    authDomain: 'greenpy-app.firebaseapp.com',
+    storageBucket: 'greenpy-app.firebasestorage.app',
+    measurementId: 'G-6X1PL0979K',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCFr_KZ3VZDBknopigqcTZ03XviKCpCp5Q',
-    appId: '1:733760701436:android:c07f5b3bf38ad8cd4a6879',
-    messagingSenderId: '733760701436',
-    projectId: 'reciclagemapp-dbe4f',
-    storageBucket: 'reciclagemapp-dbe4f.firebasestorage.app',
+    apiKey: 'AIzaSyCe9W81iAYrsUySY_qLqhk5WArZ_hkVeL4',
+    appId: '1:510039772116:android:77bda6787d2a35e4c1a441',
+    messagingSenderId: '510039772116',
+    projectId: 'greenpy-app',
+    storageBucket: 'greenpy-app.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAyDL78WLOUicUmdPmRlkMvNpen25F826o',
-    appId: '1:733760701436:ios:6e4570f21113ba744a6879',
-    messagingSenderId: '733760701436',
-    projectId: 'reciclagemapp-dbe4f',
-    storageBucket: 'reciclagemapp-dbe4f.firebasestorage.app',
-    iosBundleId: 'com.example.reciclagemApp',
+    apiKey: 'AIzaSyApTcrb0fTe6UPJGP2xybDuIvDgId8u250',
+    appId: '1:510039772116:ios:cb5bdd7fc57c29e8c1a441',
+    messagingSenderId: '510039772116',
+    projectId: 'greenpy-app',
+    storageBucket: 'greenpy-app.firebasestorage.app',
+    iosClientId: '510039772116-e2mt6jjci0rbkt4qq08vu72u9og2tntg.apps.googleusercontent.com',
+    iosBundleId: 'com.example.greenpy',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAyDL78WLOUicUmdPmRlkMvNpen25F826o',
-    appId: '1:733760701436:ios:6e4570f21113ba744a6879',
-    messagingSenderId: '733760701436',
-    projectId: 'reciclagemapp-dbe4f',
-    storageBucket: 'reciclagemapp-dbe4f.firebasestorage.app',
-    iosBundleId: 'com.example.reciclagemApp',
+    apiKey: 'AIzaSyApTcrb0fTe6UPJGP2xybDuIvDgId8u250',
+    appId: '1:510039772116:ios:cb5bdd7fc57c29e8c1a441',
+    messagingSenderId: '510039772116',
+    projectId: 'greenpy-app',
+    storageBucket: 'greenpy-app.firebasestorage.app',
+    iosClientId: '510039772116-e2mt6jjci0rbkt4qq08vu72u9og2tntg.apps.googleusercontent.com',
+    iosBundleId: 'com.example.greenpy',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyBwwxcWk6wrwTUqXaoZH_l8pwjfGqiHgOo',
-    appId: '1:733760701436:web:8d0d0c1f867122a34a6879',
-    messagingSenderId: '733760701436',
-    projectId: 'reciclagemapp-dbe4f',
-    authDomain: 'reciclagemapp-dbe4f.firebaseapp.com',
-    storageBucket: 'reciclagemapp-dbe4f.firebasestorage.app',
-    measurementId: 'G-9LW4XKZ1QR',
+    apiKey: 'AIzaSyDiWIH-rxW_vqicNjVys6TFrG-7KXv6mxA',
+    appId: '1:510039772116:web:5dae2d5e76bb4b5dc1a441',
+    messagingSenderId: '510039772116',
+    projectId: 'greenpy-app',
+    authDomain: 'greenpy-app.firebaseapp.com',
+    storageBucket: 'greenpy-app.firebasestorage.app',
+    measurementId: 'G-QCR2KX3SYX',
   );
+
 }
