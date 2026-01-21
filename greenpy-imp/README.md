@@ -1,16 +1,36 @@
-# greenpy
+# Instruções de Compilação Greenpy
 
-A new Flutter project.
+## ✅ Pré-requisitos
 
-## Getting Started
+Antes de iniciar, certifique que possui instalado:
 
-This project is a starting point for a Flutter application.
+ * Flutter SDK instalado (versão 3.x ou superior)
+ * Dart SDK (incluso no Flutter)
+ * Google Chrome (para execução web) ou Android Studio com emulador configurado
+ * Conta Google para acesso ao Firebase Console
 
-A few resources to get you started if this is your first Flutter project:
+> Verifique a instalação do Flutter executando o comando abaixo no terminal:
+> flutter doctor
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Instalação das Dependências
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Dentro da pasta do projeto, execute o comando para baixar todas as dependências necessárias (incluindo pacotes do Firebase):
+flutter pub get
+
+## Compilação e Execução
+
+Para iniciar o app, utilize o comando:
+flutter run
+
+Ao ser solicitado, escolha o dispositivo de destino:
+
+ * Chrome: Recomendado para teste.
+ * Android Emulator: Para visualização real da aplicação.
+
+## Teste de Funcionamento
+
+Para validar se a configuração foi bem-sucedida, siga estes passos:
+
+ * O aplicativo iniciará na Tela de Login.
+ * Cadastre ou realize login com usuário já cadastrado.
+ * Se os dados estiverem corretos, o app navegará automaticamente para a Tela Inicial!
