@@ -6,6 +6,8 @@ import 'account_screen.dart';
 import 'recycle_screen.dart';
 import 'how_to_recycle_screen.dart';
 import 'collection_points.dart';
+import 'rewards_screen.dart';
+import 'history_screen.dart';
 
 /// Tela principal do aplicativo após login.
 /// Exibe dados do usuário (pontos, materiais reciclados) e navegação para outras telas.
@@ -39,9 +41,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
         // Erro ao carregar dados
         if (!snapshot.hasData || snapshot.data!.data() == null) {
-          return const Scaffold(
+          print("Erro ao carregar dados - snapshot.hasData: ${snapshot.hasData}");
+          print("Erro: ${snapshot.error}");
+          return Scaffold(
             body: Center(
-              child: Text("Erro ao carregar dados"),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Erro ao carregar dados", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 10),
+                  Text(
+                    "Erro: ${snapshot.error ?? 'Desconhecido'}",
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 12),
+                  ),
+                ],
+              ),
             ),
           );
         }
@@ -61,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
         final List<Widget> pages = [
           HomePage(pontos: pontosReais, itens: itensReais), // Página inicial
           const RecycleScreen(), // Página de reciclagem
-          const Center(child: Text("Tela de Prêmios")), // Placeholder
+          const RewardsScreen(), // Página de prêmios
         ];
 
         return Scaffold(
@@ -166,14 +181,7 @@ class HomePage extends StatelessWidget {
                 const SizedBox(width: 25),
                 GreenpySquareButton(
                   icon: Icons.shopping_cart_outlined,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const CollectionPointsScreen(),
-                      ),
-                    );
-                  },
+                  onTap: () {},
                   text: 'Loja\nSustentável',
                 ),
                 const SizedBox(width: 25),
@@ -192,7 +200,14 @@ class HomePage extends StatelessWidget {
                 const SizedBox(width: 25),
                 GreenpySquareButton(
                   icon: Icons.receipt_long_outlined,
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HistoryScreen(),
+                      ),
+                    );
+                  },
                   text: 'Extrato\n ',
                 ),
               ],
