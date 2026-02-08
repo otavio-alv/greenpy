@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../services/auth_service.dart';
-import 'verification_screen.dart';
+import 'qr_code_scan_screen.dart';
 
 class SelectMaterialScreen extends StatefulWidget {
   const SelectMaterialScreen({super.key});
@@ -18,9 +18,6 @@ class _SelectMaterialScreenState extends State<SelectMaterialScreen> {
   // Controladores para as quantidades (convertidos de double para string apenas para exibição)
   final List<double> _quantities = List.generate(4, (_) => 0.0);
   final List<TextEditingController> _quantityControllers = List.generate(4, (_) => TextEditingController(text: '0'));
-
-  // Unidades para cada material
-  final List<String> _units = List.generate(4, (_) => 'unidade');
 
   @override
   void initState() {
@@ -45,11 +42,7 @@ class _SelectMaterialScreenState extends State<SelectMaterialScreen> {
     }
   }
 
-  void _changeUnit(int index, String newUnit) {
-    setState(() {
-      _units[index] = newUnit;
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -101,8 +94,6 @@ class _SelectMaterialScreenState extends State<SelectMaterialScreen> {
                     description: 'Garrafas PET, frascos de shampoo, embalagens de produtos de limpeza...',
                     isSelected: _selectedMaterials[0],
                     quantityController: _quantityControllers[0],
-                    unit: _units[0],
-                    onUnitChanged: (newUnit) => _changeUnit(0, newUnit),
                     onIncrement: () => _incrementQuantity(0),
                     onDecrement: () => _decrementQuantity(0),
                     onTap: () {
@@ -125,8 +116,6 @@ class _SelectMaterialScreenState extends State<SelectMaterialScreen> {
                     description: 'Papéis comuns, jornais, papelão, revistas de produtos...',
                     isSelected: _selectedMaterials[1],
                     quantityController: _quantityControllers[1],
-                    unit: _units[1],
-                    onUnitChanged: (newUnit) => _changeUnit(1, newUnit),
                     onIncrement: () => _incrementQuantity(1),
                     onDecrement: () => _decrementQuantity(1),
                     onTap: () {
@@ -149,8 +138,6 @@ class _SelectMaterialScreenState extends State<SelectMaterialScreen> {
                     description: 'Latinhas de bebida, latas de conserva, utensílios...',
                     isSelected: _selectedMaterials[2],
                     quantityController: _quantityControllers[2],
-                    unit: _units[2],
-                    onUnitChanged: (newUnit) => _changeUnit(2, newUnit),
                     onIncrement: () => _incrementQuantity(2),
                     onDecrement: () => _decrementQuantity(2),
                     onTap: () {
@@ -173,8 +160,6 @@ class _SelectMaterialScreenState extends State<SelectMaterialScreen> {
                     description: 'Garrafas, potes de conserva, frascos, pratos, copos...',
                     isSelected: _selectedMaterials[3],
                     quantityController: _quantityControllers[3],
-                    unit: _units[3],
-                    onUnitChanged: (newUnit) => _changeUnit(3, newUnit),
                     onIncrement: () => _incrementQuantity(3),
                     onDecrement: () => _decrementQuantity(3),
                     onTap: () {
@@ -215,15 +200,15 @@ class _SelectMaterialScreenState extends State<SelectMaterialScreen> {
                               'icon': materials[i]['icon'],
                               'color': materials[i]['color'],
                               'quantity': _quantities[i],
-                              'unit': _units[i],
+                              'unit': 'kg',
                             });
                           }
                         }
-                        // Navegar para a tela de verificação
+                        // Navegar para a leitura do QR e confirmação de reciclagem
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => VerificationScreen(selectedMaterials: selectedMaterials),
+                            builder: (context) => QrCodeScanScreen(selectedMaterials: selectedMaterials, isRecycle: true),
                           ),
                         );
                       }
@@ -270,8 +255,6 @@ class MaterialCard extends StatelessWidget {
     required this.isSelected,
     required this.onTap,
     required this.quantityController,
-    required this.unit,
-    required this.onUnitChanged,
     required this.onIncrement,
     required this.onDecrement,
   });
@@ -283,8 +266,6 @@ class MaterialCard extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onTap;
   final TextEditingController quantityController;
-  final String unit;
-  final Function(String) onUnitChanged;
   final VoidCallback onIncrement;
   final VoidCallback onDecrement;
 
@@ -370,19 +351,20 @@ class MaterialCard extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    DropdownButton<String>(
-                      value: unit,
-                      items: ['unidade', 'kg'].map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        if (newValue != null) {
-                          onUnitChanged(newValue);
-                        }
-                      },
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: color.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        'kg',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: color,
+                        ),
+                      ),
                     ),
                   ],
                 ],
