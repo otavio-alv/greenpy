@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
+import 'screens/admin_dashboard.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'themes/app_theme.dart';
 
@@ -25,7 +26,7 @@ void main() async {
 class GreenpyApp extends StatelessWidget {
   const GreenpyApp({super.key});
 
-  @override
+  @override 
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Greenpy',
@@ -45,6 +46,15 @@ class GreenpyApp extends StatelessWidget {
 
           // Se há usuário logado, vai para HomeScreen; caso contrário, LoginScreen
           if (snapshot.hasData) {
+            final user = snapshot.data;
+            final email = user?.email ?? '';
+            final localPart = email.split('@').first;
+            final isAdmin = localPart.toLowerCase().contains('admin');
+
+            if (isAdmin) {
+              return AdminDashboard(adminEmail: email);
+            }
+
             return const HomeScreen();
           } else {
             return const LoginScreen();

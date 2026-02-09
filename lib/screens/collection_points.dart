@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'collection_point_detail.dart';
 
@@ -12,38 +13,30 @@ class CollectionPointsScreen extends StatefulWidget {
 class _CollectionPointsScreenState extends State<CollectionPointsScreen> {
   // Coordenada inicial (Ouro Preto como exemplo)
   static const LatLng _center = LatLng(-20.3855, -43.5035);
-  
-  // Lista fictícia de pontos para simular o banco de dados
-  final List<Map<String, dynamic>> _pontos = [
-    {
-      'nome': 'Supermercado Itacolomy',
-      'distancia': '500m',
-      'endereco': 'Av. Juscelino Kubitscheck, 720 - Vila Itacolomy, Ouro Preto - MG',
-      'lat': -20.3855,
-      'lng': -43.5035,
-    },
-    {
-      'nome': 'Escola de Minas',
-      'distancia': '750m',
-      'endereco': 'R. Nove, 293 - Bauxita, Ouro Preto - MG',
-      'lat': -20.3890,
-      'lng': -43.5010,
-    },
-    {
-      'nome': 'Supermercado EPA',
-      'distancia': '1km',
-      'endereco': 'Av. Juscelino Kubitscheck, 91 - Vila Itacolomy, Ouro Preto - MG',
-      'lat': -20.3865,
-      'lng': -43.5050,
-    },
-  ];
+
+  double? _toDouble(dynamic v) {
+    if (v == null) return null;
+    if (v is double) return v;
+    if (v is int) return v.toDouble();
+    if (v is String) {
+      return double.tryParse(v);
+    }
+    return null;
+  }
+
+  LatLng _getLatLng(Map<String, dynamic> ponto) {
+    final lat = _toDouble(ponto['lat'] ?? ponto['latitude']);
+    final lng = _toDouble(ponto['lng'] ?? ponto['longitude']);
+    if (lat != null && lng != null) return LatLng(lat, lng);
+    return _center;
+  }
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      backgroundColor: colorScheme.primary, // Fundo verde
+      backgroundColor: colorScheme.primary,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -52,40 +45,76 @@ class _CollectionPointsScreenState extends State<CollectionPointsScreen> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'PONTO DE COLETA PRÓXIMO A VOCÊ',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 20),
-            
-            // Card Principal com o Mapa
-            _buildMainMapCard(_pontos[0]),
-            
-            const SizedBox(height: 32),
-            const Text(
-              'Mais pontos de coleta:',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 16),
+      body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+        stream: FirebaseFirestore.instance.collection('partners').snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-            // Lista de outros pontos
-            ..._pontos.skip(1).map((ponto) => _buildLocationItem(ponto)).toList(),
-            const SizedBox(height: 24),
-          ],
-        ),
+          final rawDocs = snapshot.data?.docs ?? [];
+
+          // Filtra localmente apenas os parceiros que possuem dados de endereço ou coordenadas
+          final pontos = rawDocs.where((d) {
+            final data = d.data();
+            final address = (data['address'] ?? data['endereco'] ?? '')?.toString();
+            final hasAddress = address != null && address.isNotEmpty;
+            final hasLatLng = (data['lat'] != null && data['lng'] != null) || (data['latitude'] != null && data['longitude'] != null);
+            return hasAddress || hasLatLng;
+          }).toList();
+
+          if (pontos.isEmpty) {
+            return const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.location_off, size: 48, color: Colors.white70),
+                  SizedBox(height: 16),
+                  Text(
+                    'Nenhum ponto de coleta disponível',
+                    style: TextStyle(color: Colors.white70),
+                  ),
+                ],
+              ),
+            );
+          }
+
+          return SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'PONTO DE COLETA PRÓXIMO A VOCÊ',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                
+                // Card Principal com o Mapa
+                _buildMainMapCard(pontos[0].data()),
+                
+                const SizedBox(height: 32),
+                const Text(
+                  'Mais pontos de coleta:',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 16),
+
+                // Lista de outros pontos
+                ...pontos.skip(1).map((doc) => _buildLocationItem(doc.data())).toList(),
+                const SizedBox(height: 24),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
@@ -114,11 +143,11 @@ class _CollectionPointsScreenState extends State<CollectionPointsScreen> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
                 child: GoogleMap(
-                  initialCameraPosition: CameraPosition(target: _center, zoom: 15),
+                  initialCameraPosition: CameraPosition(target: _getLatLng(ponto), zoom: 15),
                   markers: {
                     Marker(
                       markerId: const MarkerId('main_point'),
-                      position: LatLng(ponto['lat'], ponto['lng']),
+                      position: _getLatLng(ponto),
                     ),
                   },
                   zoomControlsEnabled: false,
@@ -129,10 +158,10 @@ class _CollectionPointsScreenState extends State<CollectionPointsScreen> {
             // Informações do ponto
             ListTile(
               title: Text(
-                "${ponto['nome']} (${ponto['distancia']})",
+                "${ponto['name'] ?? ponto['nome'] ?? 'Ponto de Coleta'}${ponto['distancia'] != null ? ' (${ponto['distancia']})' : ''}",
                 style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
-              subtitle: Text(ponto['endereco']),
+              subtitle: Text(ponto['address'] ?? ponto['endereco'] ?? ''),
               trailing: const Icon(Icons.chevron_right, color: Colors.grey),
             ),
             const SizedBox(height: 8),
@@ -159,11 +188,11 @@ class _CollectionPointsScreenState extends State<CollectionPointsScreen> {
           child: const Icon(Icons.location_on, color: Colors.white),
         ),
         title: Text(
-          "${ponto['nome']} (${ponto['distancia']})",
+          "${ponto['name'] ?? ponto['nome'] ?? 'Ponto de Coleta'}${ponto['distancia'] != null ? ' (${ponto['distancia'].toString()})' : ''}",
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         subtitle: Text(
-          ponto['endereco'],
+          ponto['address'] ?? ponto['endereco'] ?? '',
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),

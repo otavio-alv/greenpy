@@ -5,8 +5,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 /// Fornece métodos para cadastro, login, logout, atualização de dados de reciclagem
 /// e exclusão de conta.
 class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth;
+  final FirebaseFirestore _firestore;
+
+  AuthService({FirebaseAuth? auth, FirebaseFirestore? firestore})
+      : _auth = auth ?? FirebaseAuth.instance,
+        _firestore = firestore ?? FirebaseFirestore.instance;
 
   /// Cadastra um novo usuário no Firebase Auth e Firestore.
   /// [email]: Email do usuário.
@@ -135,10 +139,58 @@ class AuthService {
         'points': newPoints,
       });
 
+      // Adiciona entrada no histórico do usuário
+      await _firestore
+          .collection('users')
+          .doc(uid)
+          .collection('history')
+          .add({
+        'type': 'recycle',
+        'points': pointsEarned,
+        'details': {
+          'plastic': plastic,
+          'paper': paper,
+          'metal': metal,
+          'glass': glass,
+        },
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+
       return null; // Sucesso
     } catch (e) {
       return "Erro ao atualizar reciclagem: ${e.toString()}";
     }
+  }
+
+  /// Adiciona uma entrada no histórico do usuário.
+  Future<void> addHistoryEntry({
+    required String type, // 'redeem' | 'recycle' | 'other'
+    required int points,
+    Map<String, dynamic>? details,
+  }) async {
+    final user = _auth.currentUser;
+    if (user == null) return;
+    await _firestore
+        .collection('users')
+        .doc(user.uid)
+        .collection('history')
+        .add({
+      'type': type,
+      'points': points,
+      'details': details ?? {},
+      'createdAt': FieldValue.serverTimestamp(),
+    });
+  }
+
+  /// Retorna um stream do histórico do usuário ordenado por data (mais recente primeiro).
+  Stream<QuerySnapshot<Map<String, dynamic>>> streamHistory() {
+    String uid = _auth.currentUser!.uid;
+    return _firestore
+        .collection('users')
+        .doc(uid)
+        .collection('history')
+        .orderBy('createdAt', descending: true)
+        .snapshots();
   }
 
   /// Exclui a conta do usuário atual, removendo dados do Firestore e Firebase Auth.
@@ -159,5 +211,10 @@ class AuthService {
     } catch (e) {
       return e.toString(); // Erro genérico
     }
+  }
+
+  /// Retorna o usuário atual autenticado.
+  User? getCurrentUser() {
+    return _auth.currentUser;
   }
 }

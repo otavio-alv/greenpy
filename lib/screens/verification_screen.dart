@@ -54,6 +54,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
       glass: glass,
     );
 
+    // Note: history entry is written inside authService.atualizarReciclagem()
+
     setState(() {
       _isVerifying = false;
     });

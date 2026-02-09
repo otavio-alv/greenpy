@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../services/auth_service.dart';
 import 'home_screen.dart';
+import 'admin_dashboard.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -62,10 +64,26 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       );
 
-      // Troca para a tela inicial
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
-      );
+      // Aguarda um pouco para o Firebase processar o login
+      await Future.delayed(const Duration(milliseconds: 500));
+
+      // Verifica se o usuário é admin
+      final user = FirebaseAuth.instance.currentUser;
+      final email = user?.email ?? '';
+      final localPart = email.split('@').first;
+      final isAdmin = localPart.toLowerCase().contains('admin');
+
+      if (mounted) {
+        if (isAdmin) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => AdminDashboard(adminEmail: email)),
+          );
+        } else {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
+          );
+        }
+      }
     }
   }
 

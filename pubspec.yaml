@@ -21,7 +21,7 @@ version: 1.0.0+1
 environment:
   sdk: ^3.10.4
 
-# Dependencies specify other packages that your package needs in order to work.
+# Dependencies specify other package's that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
 # consider running `flutter pub upgrade --major-versions`. Alternatively,
 # dependencies can be manually updated by changing the version numbers below to
@@ -39,10 +39,14 @@ dependencies:
   cloud_firestore: ^6.1.1
   intl: ^0.20.2
   google_maps_flutter: ^2.14.0
+  mobile_scanner: ^3.5.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  integration_test: # Adicione esta linha
+    sdk: flutter
+  flutter_lints: ^6.0.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

@@ -12,6 +12,21 @@ class CollectionPointDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
 
+    double? _toDouble(dynamic v) {
+      if (v == null) return null;
+      if (v is double) return v;
+      if (v is int) return v.toDouble();
+      if (v is String) return double.tryParse(v);
+      return null;
+    }
+
+    // Valores padrão se não existirem no ponto (converte com segurança)
+    final nome = (point['name'] ?? point['nome'] ?? 'Ponto de Coleta').toString();
+    final endereco = (point['address'] ?? point['endereco'] ?? 'Endereço não informado').toString();
+    final telefone = (point['phone'] ?? '').toString();
+    final lat = _toDouble(point['lat'] ?? point['latitude']) ?? -20.3855;
+    final lng = _toDouble(point['lng'] ?? point['longitude']) ?? -43.5035;
+
     return Scaffold(
       backgroundColor: colorScheme.primary,
       appBar: AppBar(
@@ -21,7 +36,7 @@ class CollectionPointDetailScreen extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          point['nome'], // Nome do ponto como título da app bar
+          nome,
           style: const TextStyle(
             color: Colors.white,
             fontSize: 18,
@@ -45,14 +60,14 @@ class CollectionPointDetailScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 child: GoogleMap(
                   initialCameraPosition: CameraPosition(
-                    target: LatLng(point['lat'], point['lng']),
+                    target: LatLng(lat, lng),
                     zoom: 16,
                   ),
                   markers: {
                     Marker(
-                      markerId: MarkerId(point['nome']),
-                      position: LatLng(point['lat'], point['lng']),
-                      infoWindow: InfoWindow(title: point['nome']),
+                      markerId: MarkerId(nome),
+                      position: LatLng(lat, lng),
+                      infoWindow: InfoWindow(title: nome),
                     ),
                   },
                   zoomControlsEnabled: true,
@@ -72,14 +87,14 @@ class CollectionPointDetailScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Distância: ${point['distancia']}',
+                    nome,
                     style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 15),
                   const Text(
                     'Endereço:',
                     style: TextStyle(
@@ -89,12 +104,30 @@ class CollectionPointDetailScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    point['endereco'],
+                    endereco,
                     style: const TextStyle(
                       fontSize: 14,
                       color: Colors.black87,
                     ),
                   ),
+                  if (telefone.isNotEmpty) ...[
+                    const SizedBox(height: 15),
+                    const Text(
+                      'Telefone:',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Text(
+                      telefone,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ],
                   const SizedBox(height: 15),
                   const Text(
                     'Horário de Funcionamento:',
@@ -137,7 +170,6 @@ class CollectionPointDetailScreen extends StatelessWidget {
               height: 50,
               child: ElevatedButton.icon(
                 onPressed: () {
-                  // Aqui poderia abrir o Google Maps ou Waze para navegação
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Navegação iniciada!')),
                   );

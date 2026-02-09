@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart'; 
 import '../services/auth_service.dart';
+import 'login_screen.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
@@ -59,6 +60,21 @@ class AccountScreen extends StatelessWidget {
               Center(child: Chip(label: Text("Membro desde $dataFormatada"))),
               const SizedBox(height: 30),
               
+              // Botão de Sair
+              ListTile(
+                leading: const Icon(Icons.logout, color: Colors.black),
+                title: const Text('Sair'),
+                onTap: () async {
+                  await authService.logout();
+                  if (context.mounted) {
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (_) => const LoginScreen()),
+                      (route) => false,
+                    );
+                  }
+                },
+              ),
+
               // Botão de Excluir com tratamento de erro
               ListTile(
                 leading: const Icon(Icons.delete_forever, color: Colors.red),
