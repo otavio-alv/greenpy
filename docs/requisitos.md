@@ -42,5 +42,5 @@
 
 # Diagrama de Casos de Uso
 
-![Diagrama de Casos de Uso](images/casoUso.png)
+![Diagrama de Casos de Uso](imagens/casoUso.png)
 
