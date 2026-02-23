@@ -38,12 +38,12 @@ class AuthService {
         'name': name,
         'surname': surname,
         'email': email,
-        'points': 0, // Pontos iniciais
-        'plastic': 0, // Quantidade de plástico reciclado
-        'paper': 0, // Quantidade de papel reciclado
-        'glass': 0, // Quantidade de vidro reciclado
-        'metal': 0, // Quantidade de metal reciclado
-        'createdIn': FieldValue.serverTimestamp(), // Timestamp de criação
+        'points': 0, 
+        'plastic': 0.0, 
+        'paper': 0.0,   
+        'glass': 0.0,   
+        'metal': 0.0,   
+        'createdIn': FieldValue.serverTimestamp(),
       });
 
       return null; // Sucesso
@@ -97,10 +97,10 @@ class AuthService {
   /// [glass]: Quantidade de vidro reciclado.
   /// Retorna null em caso de sucesso ou uma mensagem de erro.
   Future<String?> atualizarReciclagem({
-    required int plastic,
-    required int paper,
-    required int metal,
-    required int glass,
+    required double plastic,
+    required double paper,
+    required double metal,
+    required double glass,
   }) async {
     try {
       String uid = _auth.currentUser!.uid;
@@ -114,21 +114,21 @@ class AuthService {
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
 
       // Valores atuais
-      int currentPoints = data['points'] ?? 0;
-      int currentPlastic = data['plastic'] ?? 0;
-      int currentPaper = data['paper'] ?? 0;
-      int currentMetal = data['metal'] ?? 0;
-      int currentGlass = data['glass'] ?? 0;
+      double currentPoints = data['points'] ?? 0;
+      double currentPlastic = data['plastic'] ?? 0;
+      double currentPaper = data['paper'] ?? 0;
+      double currentMetal = data['metal'] ?? 0;
+      double currentGlass = data['glass'] ?? 0;
 
       // Novos valores após reciclagem
-      int newPlastic = currentPlastic + plastic;
-      int newPaper = currentPaper + paper;
-      int newMetal = currentMetal + metal;
-      int newGlass = currentGlass + glass;
+      double newPlastic = currentPlastic + plastic;
+      double newPaper = currentPaper + paper;
+      double newMetal = currentMetal + metal;
+      double newGlass = currentGlass + glass;
 
       // Calcula pontos ganhos com base nas quantidades recicladas
-      int pointsEarned = (plastic * 5) + (paper * 3) + (metal * 7) + (glass * 4);
-      int newPoints = currentPoints + pointsEarned;
+      double pointsEarned = (plastic * 5) + (paper * 3) + (metal * 7) + (glass * 4);
+      double newPoints = currentPoints + pointsEarned;
 
       // Atualiza o documento no Firestore
       await userDoc.update({
@@ -193,6 +193,52 @@ class AuthService {
         .snapshots();
   }
 
+/// Realiza o resgate de uma recompensa deduzindo os pontos do usuário.
+  /// Verifica se há saldo suficiente antes de processar.
+  Future<String?> resgatarRecompensa({
+    required int pontosNecessarios,
+    required String tituloRecompensa,
+  }) async {
+    try {
+      String uid = _auth.currentUser!.uid;
+      DocumentReference userDoc = _firestore.collection('users').doc(uid);
+
+      // Busca os dados atuais do usuário
+      DocumentSnapshot doc = await userDoc.get();
+      if (!doc.exists) {
+        return "Usuário não encontrado.";
+      }
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+
+      // Verifica os pontos atuais
+      double currentPoints = data['points'] ?? 0;
+
+      // Valida se o usuário tem pontos suficientes
+      if (currentPoints < pontosNecessarios) {
+        return "Pontos insuficientes. Faltam ${pontosNecessarios - currentPoints} pontos para este resgate.";
+      }
+
+      // Deduz os pontos
+      double newPoints = currentPoints - pontosNecessarios;
+
+      // Atualiza o saldo de pontos no Firestore
+      await userDoc.update({
+        'points': newPoints,
+      });
+
+      // Opcional: Adiciona o registro do resgate no histórico
+      await addHistoryEntry(
+        type: 'redeem',
+        points: -pontosNecessarios, // Fica negativo para indicar gasto
+        details: {'reward': tituloRecompensa},
+      );
+
+      return null; // Retorna null indicando Sucesso
+    } catch (e) {
+      return "Erro ao processar resgate: ${e.toString()}";
+    }
+  }
+
   /// Exclui a conta do usuário atual, removendo dados do Firestore e Firebase Auth.
   /// Retorna null em caso de sucesso ou uma mensagem de erro.
   Future<String?> excluirConta() async {
@@ -218,3 +264,4 @@ class AuthService {
     return _auth.currentUser;
   }
 }
+
