@@ -12,17 +12,24 @@ import 'history_screen.dart';
 /// Tela principal do aplicativo após login.
 /// Exibe dados do usuário (pontos, materiais reciclados) e navegação para outras telas.
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final AuthService? authService; // Adicione esta linha
+  const HomeScreen({super.key, this.authService});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final AuthService authService = AuthService();
+  late final AuthService authService;
   int _currentIndex = 0; // Índice da aba selecionada na navegação inferior
 
   @override
+  void initState() {
+    super.initState();
+    // Use o serviço passado ou o padrão
+    authService = widget.authService ?? AuthService();
+  }
+  
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
 
@@ -64,12 +71,12 @@ class _HomeScreenState extends State<HomeScreen> {
         // Dados do usuário extraídos do snapshot
         final Map<String, dynamic> dados = snapshot.data!.data()!;
         final String nomeReal = dados['name'] ?? 'Reciclador';
-        final int pontosReais = dados['points'] ?? 0;
-        final List<int> itensReais = [
-          dados['plastic'] ?? 0,
-          dados['paper'] ?? 0,
-          dados['metal'] ?? 0,
-          dados['glass'] ?? 0,
+        final int pontosReais = (dados['points'] as num?)?.toInt() ?? 0;
+        final List<double> itensReais = [
+          (dados['plastic'] as num?)?.toDouble() ?? 0.0,
+          (dados['paper'] as num?)?.toDouble() ?? 0.0,
+          (dados['metal'] as num?)?.toDouble() ?? 0.0,
+          (dados['glass'] as num?)?.toDouble() ?? 0.0,
         ];
 
         // Lista de páginas para navegação inferior
@@ -144,7 +151,7 @@ class HomePage extends StatelessWidget {
   });
 
   final int pontos; // Pontos acumulados pelo usuário
-  final List<int> itens; // Lista com quantidades recicladas [plástico, papel, metal, vidro]
+  final List<double> itens; // Lista com quantidades recicladas [plástico, papel, metal, vidro]
 
   @override
   Widget build(BuildContext context) {
@@ -308,7 +315,7 @@ class ItensBox extends StatelessWidget {
     required this.itens,
   });
 
-  final List<int> itens; // Lista [plástico, papel, metal, vidro]
+  final List<double> itens; // Lista [plástico, papel, metal, vidro]
 
   @override
   Widget build(BuildContext context) {
@@ -390,7 +397,7 @@ class ItenWidget extends StatelessWidget {
   });
 
   final IconData icon;
-  final int qtd;
+  final double qtd;
   final Color? color;
 
   @override
@@ -415,7 +422,7 @@ class ItenWidget extends StatelessWidget {
               ' $qtd',
               style: const TextStyle(
                 fontFamily: 'Poppins',
-                fontSize: 25,
+                fontSize: 18,
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
               ),

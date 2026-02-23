@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'simulation_screen.dart';
+import '../services/auth_service.dart';
 
 class RecycleScreen extends StatelessWidget {
-  const RecycleScreen({super.key});
+  final AuthService? authService; // 1. Adicione o parâmetro
+  
+  const RecycleScreen({super.key, this.authService}); // 2. Atualize o construtor
 
   @override
   Widget build(BuildContext context) {

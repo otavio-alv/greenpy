@@ -24,7 +24,7 @@ class RewardsScreen extends StatelessWidget {
                 builder: (context, snapshot) {
                   int pontos = 0;
                   if (snapshot.hasData && snapshot.data!.data() != null) {
-                    pontos = snapshot.data!.data()!['points'] ?? 0;
+                    pontos = (snapshot.data!.data()!['points'] as num?)?.toInt() ?? 0;
                   }
 
                   return Column(
@@ -85,6 +85,7 @@ class RewardsScreen extends StatelessWidget {
                     
                     _buildRewardCard(
                       context,
+                      authService: authService,
                       title: "Desconto na Conta de Luz",
                       description: "R\$ 10,00 de desconto na próxima fatura.",
                       pointsCost: 500,
@@ -93,6 +94,7 @@ class RewardsScreen extends StatelessWidget {
                     ),
                     _buildRewardCard(
                       context,
+                      authService: authService,
                       title: "Vale Transporte",
                       description: "1 Passagem de ônibus municipal.",
                       pointsCost: 350,
@@ -101,6 +103,7 @@ class RewardsScreen extends StatelessWidget {
                     ),
                     _buildRewardCard(
                       context,
+                      authService: authService,
                       title: "Copo Ecológico Greenpy",
                       description: "Copo retrátil reutilizável exclusivo.",
                       pointsCost: 1000,
@@ -109,6 +112,7 @@ class RewardsScreen extends StatelessWidget {
                     ),
                     _buildRewardCard(
                       context,
+                      authService: authService,
                       title: "Muda de Árvore Nativa",
                       description: "Ganhe uma muda para plantar ou doar.",
                       pointsCost: 200,
@@ -213,6 +217,7 @@ class RewardsScreen extends StatelessWidget {
     required int pointsCost,
     required IconData icon,
     required Color color,
+    required AuthService authService, // Adicionado como parâmetro obrigatório
   }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
@@ -293,18 +298,38 @@ class RewardsScreen extends StatelessWidget {
             width: double.infinity,
             height: 42,
             child: FilledButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: const Text(
-                      'Você será redirecionado para completar o resgate desta recompensa!',
-                    ),
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    duration: const Duration(seconds: 3),
-                    behavior: SnackBarBehavior.floating,
-                    margin: const EdgeInsets.all(16),
-                  ),
+              onPressed: () async {
+                // Chama o serviço para tentar deduzir os pontos
+                String? errorMsg = await authService.resgatarRecompensa(
+                  pontosNecessarios: pointsCost,
+                  tituloRecompensa: title,
                 );
+
+                if (!context.mounted) return;
+
+                if (errorMsg == null) {
+                  // Sucesso: Pontos deduzidos
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Resgate de "$title" realizado com sucesso!'),
+                      backgroundColor: Colors.green, // Cor de sucesso
+                      duration: const Duration(seconds: 3),
+                      behavior: SnackBarBehavior.floating,
+                      margin: const EdgeInsets.all(16),
+                    ),
+                  );
+                } else {
+                  // Erro: Pontos insuficientes ou outro erro de sistema
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(errorMsg),
+                      backgroundColor: Colors.redAccent, // Cor de erro
+                      duration: const Duration(seconds: 4),
+                      behavior: SnackBarBehavior.floating,
+                      margin: const EdgeInsets.all(16),
+                    ),
+                  );
+                }
               },
               style: FilledButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.primary,
@@ -326,5 +351,4 @@ class RewardsScreen extends StatelessWidget {
         ],
       ),
     );
-  }
-}
+  }}

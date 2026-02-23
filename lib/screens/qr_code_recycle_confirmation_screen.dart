@@ -20,14 +20,14 @@ class _QrCodeRecycleConfirmationScreenState extends State<QrCodeRecycleConfirmat
     setState(() => _isProcessing = true);
 
     // Aggregate quantities
-    int plastic = 0;
-    int paper = 0;
-    int metal = 0;
-    int glass = 0;
+    double plastic = 0;
+    double paper = 0;
+    double metal = 0;
+    double glass = 0;
 
     for (var mat in widget.selectedMaterials) {
       final title = mat['title'] as String? ?? '';
-      final qty = (mat['quantity'] as num?)?.toInt() ?? 0;
+      final qty = (mat['quantity'] as num?)?.toDouble() ?? 0;
       switch (title) {
         case 'Plástico':
           plastic += qty;

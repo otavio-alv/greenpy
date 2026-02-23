@@ -5,14 +5,16 @@ import 'home_screen.dart';
 import 'admin_dashboard.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  final AuthService? authService; // Adicione este parâmetro
+  const LoginScreen({super.key, this.authService});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final AuthService _authService = AuthService();
+  // Inicialize o serviço no initState
+  late final AuthService _authService;
   
   // Autenticação
   final TextEditingController _emailController = TextEditingController();
@@ -88,6 +90,10 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _authService = widget.authService ?? AuthService();
+  }
   Widget build(BuildContext context) {
     // Utiliza do tema universal do app
     final colorScheme = Theme.of(context).colorScheme;
